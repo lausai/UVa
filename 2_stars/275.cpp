@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void foo(int a, int b)
+void process(int a, int b)
 {
     if (a == 0) {
         printf(".\nThis expansion terminates.\n\n");
@@ -16,8 +16,9 @@ void foo(int a, int b)
     int count = 1;
 
     printf(".");
+    vector<int>::iterator it;
 
-    while (find(list.begin(), list.end(), a) == list.end()) {
+    while ((it = find(list.begin(), list.end(), a)) == list.end()) {
         list.push_back(a);
 
         int c = (a * 10) < b ? 0 : (a * 10) / b;
@@ -38,7 +39,7 @@ void foo(int a, int b)
     }
 
     if (repeat)
-        printf("\nThe last %d digits repeat forever.\n\n", list.size());
+        printf("\nThe last %d digits repeat forever.\n\n", list.end() - it);
     else
         puts("\nThis expansion terminates.\n");
 }
@@ -48,7 +49,7 @@ int main()
     int a, b;
     
     while (scanf("%d %d", &a, &b), a != 0 || b != 0) {
-        foo(a, b);
+        process(a, b);
     }
 
 	return 0;
