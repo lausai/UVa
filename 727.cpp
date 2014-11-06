@@ -7,52 +7,82 @@ int main()
 {
     int n = 0;
     char tmp = 0;
-    scanf("%d%c", &n, &tmp);
+    scanf("%d%c%c", &n, &tmp, &tmp);
 
-    for (int i = 0; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
+        if (i > 0)
+            puts("");
+
         stack<char> stk;
-        bool getOptor = false;
         
         while (true) {
-            char c = 0;
-            bool outLoop = false;
+            char buf[3] = {};
+            
+            gets(buf);
+            char c = buf[0];
 
-            if (scanf("%c", &c) == EOF)
+            if (feof(stdin) || c == 0)
                 break;
             
             switch (c) {
-            case '\n':
-                outLoop = true;
-                break;
             case '(':
-                getOptor = false;
+                stk.push(c);
                 break;
             case ')':
+                while (true) {
+                    c = stk.top();
+                    stk.pop();
+                    printf("%c", c);
+                    
+                    if (c == '(') break;
+                }
                 break;
             case '+':
             case '-':
+                while (true) {
+                    if (stk.size() == 0) {
+                        stk.push(c);
+                        break;
+                    }
+
+                    char topc = stk.top();
+                    if (topc == '(') {
+                        stk.push(c);
+                        break;
+                    } else {
+                        printf("%c", c);
+                        stk.pop();
+                    }
+                }
+                break;
             case '*':
             case '/':
-                getOptor = true;
-                stk.push(c);
+                while (true) {
+                    if (stk.size() == 0) {
+                        stk.push(c);
+                        break;
+                    }
+
+                    char topc = stk.top();
+                    if (topc == '*' || c == '/') {
+                        printf("%c", c);
+                        stk.pop();
+                    } else {
+                        stk.push(c);
+                        break;
+                    }
+                }
                 break;
             default:
-                if (getOptor) {
-                    char optor = stk.top();
-
-                    stk.pop();
-                    printf("%c%c%c", stk.top(), c, optor);
-                    stk.pop();
-                }  else {
-                    stk.push(c);
-                }
+                printf("%c", c);
             }
-
-            if (outLoop)
-                break;
-            
-            scanf("%c", &c);
         }
+
+        while (stk.size() != 0) {
+            printf("%c", stk.top());
+            stk.pop();
+        }
+
         puts("");
     }
 
