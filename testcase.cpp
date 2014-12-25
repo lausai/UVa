@@ -6,12 +6,12 @@ int main()
 {
     srand(time(NULL));
 
-    int num = 20;
+    int num = 50;
     printf("%d\n\n", num);
 
     for (int i = 0; i < num; i++) {
-        int x = rand() % 30;
-        int y = rand() % 30;
+        int x = rand() % 3;
+        int y = rand() % 3;
 
         printf("%d %d\n", x, y);
 
