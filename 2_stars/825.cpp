@@ -2,34 +2,7 @@
 
 using namespace std;
 
-bool (*map)[100] = NULL;
-
-
-int walk(int x, int y)
-{
-    if (x == 0 || y == 0)
-        return 0;
-
-    if (map[x - 1][y - 1])
-        return 0;
-
-    if (x == 1 && y == 1)
-        return 1;
-
-    if (x == 2 && y == 1)
-        return 1;
-
-    if (x == 1 && y == 2)
-        return 1;
-
-    if (x == 1)
-        return walk(x, y - 1);
-
-    if (y == 1)
-        return walk(x - 1, y);
-
-    return walk(x - 1, y) + walk(x, y - 1);
-}
+bool (*map)[102] = NULL;
 
 int main()
 {
@@ -42,25 +15,26 @@ int main()
         char c;
 
         scanf("%d %d", &x, &y);
-        bool _map[100][100] = {};
-        int _ans[100][100] = {};
+        bool _map[102][102] = {};
+        int _ans[102][102] = {};
         map = _map;
 
         for (int j = 0; j < x; j++) {
-            int _x = 0, _y = 0;
+            char buf[1024] = {};
+            char* addr = buf;
+            int _x = 0, _y = 0, n = 0;
+            
+            while (buf[0] == '\n' || buf[0] == 0)
+                fgets(buf, sizeof(buf), stdin);
 
-            scanf("%d%c", &_x, &c);
-            if (c == '\n')
-                continue;
+            sscanf(addr, "%d%n", &_x, &n);
+            addr += n;
 
-            while (c != '\n') {
-                scanf("%d%c", &_y, &c);
-                
+            while (sscanf(addr, "%d%n", &_y, &n) > 0) {
+                addr += n;
                 map[_x][_y] = true;
             }
         }
-
-//        int ans = walk(x, y);
 
         for (int j = 1; j <= x; j++) {
             for (int k = 1; k <= y; k++) {
@@ -87,7 +61,8 @@ int main()
         
         if (i > 0)
             puts("");
-
+        
+        _ans[1][1] = 1;
         printf("%d\n", _ans[x][y]);
     }
 
