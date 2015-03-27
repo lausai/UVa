@@ -42,19 +42,17 @@ int main()
             arr[i] = i + 1;
         
         int idx = 0;
+        int preidx = 0;
 
         for (int i = 0; i < n - 1; i++) {
-            int s = primeList[i];
-            int preidx = 0;
-//            printf("%d %d\n", primeList[i], s);
+            int s = (primeList[i] - 1) % (n - i);
 
-            for (int j = 0; j < s - 1; j++) {
+            for (int j = 0; j < s; j++) {
                 preidx = idx;
                 idx = arr[idx];
             }
             
             int tmp = idx;
-//            printf("%d\n", idx);
             arr[preidx] = arr[idx];
             idx = arr[idx];
             arr[tmp] = -1;
