@@ -10,8 +10,8 @@ int main()
     printf("%d\n\n", num);
 
     for (int i = 0; i < num; i++) {
-        int x = rand() % 3;
-        int y = rand() % 3;
+        int x = rand() % 20;
+        int y = rand() % 20;
 
         printf("%d %d\n", x, y);
 
