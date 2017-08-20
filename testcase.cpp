@@ -1,32 +1,30 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
- 
+
+void foo()
+{
+    puts("true");
+}
+
+void bar()
+{
+    puts("false");
+}
+
 int main()
 {
     srand(time(NULL));
 
-    int num = 50;
-    printf("%d\n\n", num);
+    int c = rand() % 10;
+    int i = rand() % 10;
 
-    for (int i = 0; i < num; i++) {
-        int x = rand() % 20;
-        int y = rand() % 20;
+    c = c * i;
 
-        printf("%d %d\n", x, y);
+    if (c > 0)
+        foo();
+    else
+        bar();
 
-        for (int j = 0; j < x; j++) {
-            printf("%d", j + 1);
-
-            for (int k = 0; k < y; k++) {
-                if (rand() % 10 == 0)
-                    printf(" %d", k + 1);
-            }
-
-            puts("");
-        }
-
-        puts("");
-    }
     return 0;
 }
