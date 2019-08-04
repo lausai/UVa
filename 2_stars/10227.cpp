@@ -10,23 +10,31 @@ int main()
 
     for (int i = 0; i < round; i++) {
         char line[16] = {};
-        int P = 0, T = 0;
+        size_t P = 0, T = 0;
 
         fgets(line, sizeof(line) - 1, stdin);
+        sscanf(line, "%u %u", &P, &T);
+
         set<int> list[100];
-        int ans = 0;
-        int num = 0;
+        set<int> p_set;
         while (fgets(line, sizeof(line) - 1, stdin) != NULL) {
             int i = 0, j = 0;
             if (sscanf(line, "%d %d", &i, &j) != 2)
                 break;
 
             list[i-1].insert(j);
-            num++;
+            p_set.insert(i-1);
         }
 
-        for (int k = 0; i < num; i++) {
+        set<int>::iterator itor = p_set.begin();
+        set<set<int> > ans;
+        for (; itor != p_set.end(); itor++) {
+            ans.insert(list[*itor]);
         }
+
+
+        const char* prefix = i == 0 ? "" : "\n";
+        printf("%s%d\n", prefix, p_set.size() == P ? ans.size() : ans.size() + 1);
     }
 
 	return 0;
